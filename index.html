@@ -378,10 +378,13 @@
       <button class="btn-ghost" id="btnCancelImport">Batalkan</button>
     </div>
     <div class="ai-error" id="aiUnavailableNotice" style="display:none;background:#F3F4EF;border-color:var(--line);color:var(--ink-soft);">
-      Fitur "Telaah Otomatis dengan AI" hanya bisa berfungsi saat file ini dibuka dari dalam tampilan chat Claude, karena permintaannya perlu melewati sandbox resmi Claude. Halaman ini tampaknya dibuka di luar chat Claude (mis. dari GitHub Pages atau file lokal), jadi fitur tersebut dinonaktifkan. Silakan isi skor secara manual di bawah — semua fitur lain (penghitungan skor, cetak, unduh ringkasan) tetap berfungsi normal.
+      <strong style="color:var(--ink);">Telaah otomatis dengan AI tidak tersedia di halaman ini.</strong><br>
+      Fitur itu hanya aktif saat dibuka langsung di dalam chat Claude. Di sini (GitHub Pages / file lokal), semua fitur lain tetap gratis dan berfungsi penuh: pembacaan file di atas, penghitungan skor, cetak PDF, dan unduh Word.<br><br>
+      Cara lanjut secara manual: buka <em>"Lihat teks yang terbaca"</em> di atas untuk membaca isi dokumen, lalu isi ke-22 butir penilaian di bawah berdasarkan teks tersebut.
     </div>
     <div class="ai-error" id="aiError"></div>
-    <p class="privacy-note">Saat Anda menekan "Telaah Otomatis dengan AI", teks yang terbaca dari file akan dikirim ke Claude (API Anthropic) untuk dianalisis. Hasilnya adalah draf awal — periksa dan sesuaikan kembali sebelum digunakan sebagai hasil telaah resmi.</p>
+    <p class="privacy-note" id="privacyNote">Saat Anda menekan "Telaah Otomatis dengan AI", teks yang terbaca dari file akan dikirim ke Claude (API Anthropic) untuk dianalisis. Hasilnya adalah draf awal — periksa dan sesuaikan kembali sebelum digunakan sebagai hasil telaah resmi.</p>
+    <p class="privacy-note" id="manualNote" style="display:none;">Semua fitur di halaman ini (baca file, hitung skor, cetak PDF, unduh Word) berjalan sepenuhnya di browser Anda, gratis, dan tidak mengirim data ke mana pun.</p>
   </div>
 
   <div class="identitas">
@@ -1000,7 +1003,9 @@ let claudeSample = null;
   } catch(e){ claudeSample = null; }
   if (!claudeSample){
     aiUnavailableNotice.style.display = 'block';
-    btnAnalyze.disabled = true;
+    btnAnalyze.style.display = 'none';
+    document.getElementById('privacyNote').style.display = 'none';
+    document.getElementById('manualNote').style.display = 'block';
   }
 })();
 
